@@ -1,26 +1,28 @@
-Violence & Weapon Detection in Surveillance Videos
-This project focuses on detecting violent actions and weaponized individuals in video surveillance footage using two approaches:
-🔍 Machine Learning (ML) with CNN
-⚙️ Deep Learning (DL) with MobileNetV2 + LSTM
+# Violence & Weapon Detection in Surveillance Videos
 
-The system classifies actions into:
+This project detects **violent actions** and **weaponized individuals** in surveillance footage using two approaches:
 
-Normal
+* 🔍 Machine Learning (**CNN**)
+* ⚙️ Deep Learning (**MobileNetV2 + LSTM**)
 
-Violence
+It classifies activities into:
 
-Weaponized
+* **Normal**
+* **Violence**
+* **Weaponized**
 
-📂 Dataset
-The dataset used is the Surveillance Camera Violence Detection (SCVD) dataset from Kaggle:
-🔗 Surveillance Camera Violence Detection - Kaggle
+---
 
-⚠️ The dataset is not included in this repository due to its large size. Please download it directly from Kaggle.
+## 📂 Dataset
 
-Folder Structure (after download):
-bash
-Copy
-Edit
+The project uses the **Surveillance Camera Violence Detection (SCVD)** dataset from Kaggle:
+🔗 [Kaggle Dataset Link](https://www.kaggle.com/datasets/rohitsingh9990/surveillance-camera-violence-detection)
+
+> ⚠️ **The dataset is not included in this repository** due to its size. Please download it from the link above.
+
+**Dataset Structure:**
+
+```
 Dataset/
 ├── Normal/
 │   ├── train/
@@ -31,98 +33,84 @@ Dataset/
 └── Weaponized/
     ├── train/
     └── test/
-🔍 Machine Learning Approach: Custom CNN
-🛠 Model Architecture:
-Conv2D Layers: Extract basic spatial features from individual video frames.
+```
 
-MaxPooling: Reduces dimensionality.
+---
 
-Flatten + Dense: Fully connected layers classify the frame as Violent or Normal.
+## 🔍 Machine Learning Model (CNN)
 
-Dropout: Prevents overfitting.
+### 🛠️ Model Architecture
 
-⚙️ Workflow:
-Preprocess video frames: resized, normalized.
+* **Conv2D & MaxPooling:** Extract spatial features from individual frames.
+* **Fully Connected Layers:** Perform binary classification (**Violent** or **Normal**).
+* **Dropout:** Reduces overfitting.
 
-Each frame independently classified as violent or normal.
+### ✔️ Highlights
 
-Binary Classification - does not distinguish "Weaponized" as a separate class.
+* Trained on individual frames.
+* Binary classification (Normal vs Violence).
+* Achieved \~80% accuracy on test data.
 
-Best Accuracy: ~80% on frame-level classification.
+---
 
-✅ Strengths:
-Lightweight and fast for real-time frame classification.
+## ⚙️ Deep Learning Model (MobileNetV2 + LSTM)
 
-Simpler to train on smaller datasets.
+### 🛠️ Model Architecture
 
-⚙️ Deep Learning Approach: MobileNetV2 + LSTM
-🛠 Model Architecture:
-MobileNetV2: Pre-trained on ImageNet, extracts efficient spatial features from each frame (low computation cost).
+* **MobileNetV2:** Pre-trained on ImageNet for spatial feature extraction.
+* **TimeDistributed Layers:** Apply MobileNetV2 across all frames in a clip.
+* **LSTM Layers:** Capture temporal patterns across video frames.
+* **Fully Connected Layers:** Classify the entire video sequence.
 
-TimeDistributed Layer: Applies MobileNetV2 to each frame in the video clip.
+### ✔️ Highlights
 
-LSTM Layers: Captures temporal relationships and motion patterns across the 15 frames.
+* Processes sequences of **15 frames** per video.
+* Designed for recognizing motion-based activities.
+* Achieved \~98% accuracy on test clips.
 
-Dense Output: Performs binary classification (Violent vs Normal) by combining spatial and temporal features.
+---
 
-⚙️ Workflow:
-Preprocess video clips into 15 frames each.
+## 🔧 Repository Contents
 
-MobileNetV2 extracts features for each frame.
+| Model | Architecture       | Task                          | Accuracy |
+| ----- | ------------------ | ----------------------------- | -------- |
+| ML    | Custom CNN         | Frame-level classification    | \~80%    |
+| DL    | MobileNetV2 + LSTM | Sequence-level classification | \~98%    |
 
-LSTM learns patterns over time (e.g., repetitive violent actions).
+Pre-trained models (`.keras` files) are included. You'll need to download the dataset and run the provided code to retrain or fine-tune.
 
-Final Sigmoid layer predicts if the clip contains violence.
+---
 
-Best Accuracy: ~98% on clip-level classification.
+## 🛠️ Tools & Libraries
 
-✅ Strengths:
-Handles motion-based patterns, not just single frames.
+* TensorFlow, Keras
+* OpenCV
+* NumPy, Pandas, Scikit-learn
+* Matplotlib
+* Jupyter Notebook, Google Colab
+* Microsoft Azure, Office 365 (for collaboration and deployment)
 
-Much higher accuracy on real-world scenarios where violence involves sequences of actions.
+---
 
-🔧 Models Included in the Repository
-Model Type	Architecture	Purpose	Accuracy
-ML	CNN (custom from scratch)	Frame-level classification	~80%
-DL	MobileNetV2 + LSTM	Clip-level video classification	~98%
+## 📊 Evaluation Metrics
 
-Both models are saved as .keras files ready for loading.
+* Accuracy
+* Precision & Recall
+* Confusion Matrix
+* Training/Validation Loss & Accuracy Curves
 
-🛠 Tools & Libraries
-TensorFlow / Keras
+---
 
-OpenCV
+## 🔮 Future Work
 
-Scikit-learn
+* Deploy real-time detection on CCTV feeds.
+* Expand the deep learning model to handle "Weaponized" as a separate class.
+* Deploy on Azure or edge devices.
+* Improve generalization across different datasets.
 
-NumPy, Pandas
+---
 
-Matplotlib
+## 🙏 Acknowledgments
 
-Jupyter Notebook / Google Colab
-
-Microsoft Azure (for deployment exploration)
-
-📊 Evaluation Metrics
-Accuracy: Primary evaluation metric.
-
-Confusion Matrix: For clear visualization of performance.
-
-Precision & Recall: To handle imbalance between normal and violent samples.
-
-Loss & Accuracy Curves: Tracked over training epochs.
-
-🔮 Future Work
-Real-time inference on CCTV streams.
-
-Adding a separate "Weaponized" class in the DL model.
-
-Deploying on Azure or local edge devices for faster, secure processing.
-
-Expanding to more surveillance datasets.
-
-🙏 Acknowledgements
-Kaggle Dataset Providers.
-
-Open-source community (TensorFlow, Keras, OpenCV).
-
+* Kaggle Dataset Contributors
+* TensorFlow & OpenCV communities
