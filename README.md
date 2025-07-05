@@ -15,12 +15,22 @@ It classifies activities into:
 
 ## 📂 Dataset
 
-The project uses the **Surveillance Camera Violence Detection (SCVD)** dataset from Kaggle:
-🔗 [Kaggle Dataset Link](https://www.kaggle.com/datasets/rohitsingh9990/surveillance-camera-violence-detection)
+The project uses the **Surveillance Camera Violence Detection (SCVD)** dataset.
 
-> ⚠️ **The dataset is not included in this repository** due to its size. Please download it from the link above.
+You can download the dataset directly from your notebook using **kagglehub**:
 
-**Dataset Structure:**
+```python
+import kagglehub
+
+# Download the latest version
+path = kagglehub.dataset_download("toluwaniaremu/smartcity-cctv-violence-detection-dataset-scvd")
+
+print("Path to dataset files:", path)
+```
+
+> ⚠️ **The dataset is not included in this repository** due to its size.
+
+**Dataset Folder Structure:**
 
 ```
 Dataset/
